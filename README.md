@@ -1,5 +1,5 @@
 # Turbo-ParTool
-## PL:
+# PL:
 Pakiet programów służących do edytowania pliku `.par` z gry KnightShift.
 
 UWAGA! TA WERSJA MA PEWNE NIEDORÓBKI I BARDZO STARY KOD ŹRÓDŁOWY PRZED REFAKTORYZACJĄ,
@@ -72,7 +72,7 @@ PRZYKŁAD .ps1:<br>
 `.\PARim.exe .\<nazwa folderu wejściowego> .\<nazwa pliku wyjściowego.par>`
 
 
-## ENG:
+# ENG:
 A package of programs for editing `.par` files from the game KnightShift.
 
 WARNING! THIS VERSION HAS SOME BUGS AND VERY OLD SOURCE CODE BEFORE REFACTORING.

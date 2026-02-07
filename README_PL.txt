@@ -16,8 +16,6 @@ PRZED EDYCJĄ NALEŻY UPEWNIĆ SIĘ, ŻE WYPAKOWANY PAR PO DEKOMPILACJI JEST TAK
 Edycja plików:
 --------------
     -> Pliki cpp fajnie jest edytować w programie geany, który ładnie przedstawia sekcję w postaci drzewka.
-    -> Instalka do programu Geany powinna być dołączona obok instrukcji. Jak wersja jest za stara to sobie
-    pobierzcie nowszą,
     -> Plik section_order.txt to plik, w którym jest kolejność odpowiednich sekcji. Przy dodawaniu nowej
     sekcji należy wpisać nowo dodaną sekcję do tego pliku w odpowiednim miejscu.
     -> Wpisy count() oznaczają, że podczas kompilacji, kompilator sam policzy ilość sekcji/obiektów w par (jest to bardzo wygodne).

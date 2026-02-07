@@ -16,8 +16,6 @@ BEFORE EDITING, MAKE SURE THAT THE UNPACKED PAR AFTER DECOMPILATION IS THE SAME 
 Edit files:
 --------------
     -> It's nice to edit the cpp files in the geany program, which nicely presents the section in the form of a tree.
-    -> Geany program installer should be included next to the manual. If the version is too old then yourself
-    download a newer one,
     -> The file section_order.txt is the file where the order of the relevant sections is. When adding a new
     section, enter the newly added section into this file in the appropriate place.
     -> count() entries mean that during compilation, the compiler will count the number of sections/objects in pairs by itself (this is very convenient).
