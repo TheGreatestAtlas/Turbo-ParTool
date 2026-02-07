@@ -6,23 +6,22 @@ UWAGA! TA WERSJA MA PEWNE NIEDORÓBKI I BARDZO STARY KOD ŹRÓDŁOWY PRZED REFAK
 jednak skompilowane oprogramowanie działa dobrze i raczej nie będzie sprawiać problemów podczas modowania KnightShift.
 
 
-## PARex (DEKOMPILATOR)
----
-PARex jest to program służący do eksportu pliku .par z KnightShift do postaci
-folderu z plikami .cpp, które reprezentują każdą sekcję .par.
+### PARex (DEKOMPILATOR)
+
+PARex jest to program służący do eksportu pliku `.par` z **KnightShift** do postaci
+folderu z plikami `.cpp`, które reprezentują każdą sekcję `.par`.
 
 Jak używać?
-    1. Włączamy program.
-    2. Wpisujemy nazwę pliku wejściowego wraz z formatem.
-    3. No i klikamy enter i czekamy (szybko schodzi).
+1. Włączamy program.
+2. Wpisujemy nazwę pliku wejściowego wraz z formatem.
+3. No i klikamy enter i czekamy (szybko schodzi).
 
-Program działa również w trybie ARGC&ARGV, przykład:
-PARex.exe <nazwa pliku.par> <nazwa folderu wyjściowego>
+Program działa również w trybie ARGC&ARGV, przykład:<br>
+`PARex.exe <nazwa pliku.par> <nazwa folderu wyjściowego>`
 
 PRZED EDYCJĄ NALEŻY UPEWNIĆ SIĘ, ŻE WYPAKOWANY PAR PO DEKOMPILACJI JEST TAKI SAM JAK PAR PO KOMPILACJI...
 
-Edycja plików:
---------------
+### Edycja plików:
     -> Pliki cpp fajnie jest edytować w programie geany, który ładnie przedstawia sekcję w postaci drzewka.
     -> Instalka do programu Geany powinna być dołączona obok instrukcji. Jak wersja jest za stara to sobie
     pobierzcie nowszą,
