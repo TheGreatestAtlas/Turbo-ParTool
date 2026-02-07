@@ -42,9 +42,9 @@ PARim (COMPILATOR)
 PARim is a program, or more precisely a compiler used to compile an entire folder of .cpp object files into .par.
 
 How to use?
-    1) Turn on the program.
-    2) We type the name of the folder.
-    3) We click enter and in a moment it should be done.
+    1. Turn on the program.
+    2. We type the name of the folder.
+    3. We click enter and in a moment it should be done.
     4. Ready we have par!
 
 The program also works in ARGC&ARGV mode, example:
