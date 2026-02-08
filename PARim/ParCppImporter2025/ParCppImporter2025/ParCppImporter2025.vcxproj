@@ -129,11 +129,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinFile.cpp" />
+    <ClCompile Include="Compilator.cpp" />
+    <ClCompile Include="CompilatorValueTypes.hpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="HashMaps.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ParCppImporter2025.cpp" />
+    <ClCompile Include="OrderFile.cpp" />
+    <ClCompile Include="ParCompilator.cpp" />
+    <ClCompile Include="ParCompilatorApp.cpp" />
+    <ClCompile Include="TextFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ParCppImporter2025.hpp" />
+    <ClInclude Include="BinFile.hpp" />
+    <ClInclude Include="Compilator.hpp" />
+    <ClInclude Include="Console.hpp" />
+    <ClInclude Include="Enums.hpp" />
+    <ClInclude Include="MessScanner.hpp" />
+    <ClInclude Include="MessPrinter.hpp" />
+    <ClInclude Include="Globals.hpp" />
+    <ClInclude Include="HashMaps.hpp" />
+    <ClInclude Include="Misc.hpp" />
+    <ClInclude Include="MyFile.hpp" />
+    <ClInclude Include="OrderFile.hpp" />
+    <ClInclude Include="ParCompilatorApp.hpp" />
+    <ClInclude Include="ParCompilator.hpp" />
+    <ClInclude Include="TextFile.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
