@@ -1,8 +1,304 @@
-#include "parcppV7.hpp"
-#include "posortowaneklasy.hpp"
+#include "Object.hpp"
+#include "SortedClassIds.hpp"
+#include "OtherClassIds.hpp"
+#include <array>
+
+using namespace std;
+
+std::vector<std::string> v_s_moveable_flags_labels = {
+"animalUnit",
+"recyclableUnit",
+"towerUnit",
+"gateUnit",
+"sleepModeUnit",
+"camouflageModeUnit",
+"enemyAlertUnit",
+"ghostFriendUnit",
+"noEquipmentArtefactsUnit",
+"haveArmourExplosion",
+"noAccurateStandInSleep",
+"noMagicFreezeUnit",
+"noMagicGetHPUnit",
+"noMagicBlindAttackUnit",
+"loopedMoveAnimUnit",
+"noPoissonUnit",
+"turnAnimUnit",
+"noTurnToFreeGridInSleep",
+"noGetArtefactUnit" };
+
+std::vector<std::string> v_s_plug_types_labels = {
+"tmpPlug",
+"swordPlug",
+"helmetPlug",
+"shieldPlug",
+"armourPlug",
+"necklacePlug",
+"ringPlug",
+"beltPlug",
+"unknown",
+"axePlug",
+"bowPlug",
+"spearPlug",
+"crossbowPlug",
+"specialPlug",
+"magicPlug",
+"eggPlug",
+"udderPlug",
+"bannerPlug",
+"princeSwordPlug",
+"princeHelmetPlug",
+"princeShieldPlug",
+"princeArmourPlug",
+"quiverPlug",
+"weaponPriestess_Or_SorcererPlug" };
+
+std::vector<std::string> v_s_slot_types_labels = {
+"tmpSlot",
+"swordSlot",
+"helmetSlot",
+"shieldSlot",
+"armourSlot",
+"necklaceSlot",
+"ringSlot",
+"beltSlot",
+"unknown",
+"axeSlot",
+"bowSlot",
+"spearSlot",
+"crossbowSlot",
+"specialSlot",
+"magicSlot",
+"eggSlot",
+"udderSlot",
+"bannerSlot",
+"princeWeaponSlot",
+"princeHelmetSlot",
+"princeShieldSlot",
+"princeArmourSlot",
+"quiverSlot",
+"weaponPriestess_Or_SorcererSlot" };
+
+std::vector<std::string> v_s_slot_type_8_labels = {
+"spellPlugShield",
+"spellPlugCapture",
+"spellPlugStorm",
+"spellPlugConversion",
+"spellPlugFireRain",
+"spellPlugSeeing",
+"spellPlugTeleportation",
+"spellPlugGhost",
+"spellPlugWolf",
+"spellPlugRemoveStorm" };
+
+std::vector<std::string> v_s_storeable_flags_labels = {
+"alwaysShadowed",
+"notEnemyTarget",
+"notSelectableActive",
+"neverShadowed",
+"notAutoTarget",
+"childUnit",
+"unknown1",
+"unknown2",
+"drawSelectionFrame",
+"drawSelectionHP",
+"drawDamagedSelectionFrame",
+"drawDamagedSelectionHP_Or_PassiveSelection",
+"drawEnemySelectionFrame",
+"drawEnemySelectionHP",
+"drawUnknown1",
+"drawUnknown2",
+"lockedDamageIncrease",
+"lockedSpeedUpRegeneration",
+"lockedSpeedUpMagicReload",
+"lockedHarvestSpeedIncrease",
+"lockedBuildSpeedIncrease",
+"lockedArmourIncrease" };
+
+std::vector<std::string> v_s_rpg_plug_type_labels = {
+"spellPlugShield",
+"spellPlugCapture",
+"spellPlugStorm",
+"spellPlugConversion",
+"spellPlugRPGPriestess",
+"spellPlugSeeing",
+"spellPlugTeleportation",
+"spellPlugGhost",
+"spellPlugRPG1",
+"spellPlugRPG2",
+"spellPlugRPG3",
+"spellPlugRPG4",
+"spellPlugRPG5",
+"spellPlugRPG6",
+"spellPlugRPG7",
+"spellPlugRPG8",
+"spellPlugRPG9",
+"spellPlugRPG10",
+"spellPlugRPG11",
+"spellPlugRPG12",
+"spellPlugRPG13",
+"spellPlugRPG14",
+"spellPlugRPG15",
+"spellPlugRPG16",
+"spellPlugRPG17" };
 
 
-std::vector<std::string> moveable = {
+std::vector<std::string> v_s_rpg_unit_flags_labels = {
+"userRPGUnit",
+"unknown1",
+"unknown2",
+"unknown3",
+"singleShootAnim",
+"holdTrapOnceUnit"
+};
+
+
+std::vector<std::string> v_s_artefact_mask_labels = {
+"artefactRegenerateHP",
+"artefactRegenerateMagic",
+"artefactAddMaxHP",
+"artefactAddDamage",
+"artefactAddMaxMagic",
+"artefactAddHP",
+"artefactAddMagic",
+"artefactGiveMoney",
+"artefactShowMap",
+"artefactGiveRPGMoney",
+"unknown1",
+"unknown2",
+"artefactEquipment",
+"artefactRPGUnitOnly",
+"artefactNoLocatedTalk",
+"artefactSpecialAI",
+"artefactNoToolitpData",
+"artefactDropFromInventory",
+"artefactNoSold",
+"artefactNoDrop",
+"artefactNoUse",
+"artefactNoRPGUnit",
+"artefactUniqueTooltipText",
+"artefactCurePoison",
+"artefactNoBlinkInventory" };
+
+std::vector<std::string> v_s_look_round_type_mask_labels = {
+"lookRoundTypeDamageIncrease",
+"lookRoundTypeRadar",
+"lookRoundTypeShadow",
+"lookRoundTypeArmourIncrease",
+"lookRoundTypeSpeedUpHPRegeneration",
+"lookRoundTypeSpeedUpMagicRegeneration",
+"lookRoundTypeHarvestSpeedIncrease",
+"lookRoundTypeBuildSpeedIncrease" };
+
+
+std::vector<std::string> v_s_passive_mask_labels = {
+"_wallConnectMask_",
+"_wallTargetMask_",
+"_depotMask_",
+"_cornerMask_",
+"_edgeMask_",
+"_roadMask_",
+"_startSmokeMask_",
+"_transientMask_",
+"_cantBeHitMask_",
+"_initInvisibleMask_",
+"_autoLightsMask_",
+"_repairableMask_",
+"_destroyableMask_",
+"_loopedSoundMask_",
+"_notVisibleMask_",
+"_noResourceOnPassiveMask_",
+"_initRandomLoopedAnimMask_",
+"_cannonTransientMask_",
+"_dayBirdMask_",
+"_nightBirdMask_",
+"_removeOnBuildingMask_",
+"_colouredMask_",
+"_destroyedEventMask_" };
+
+std::vector<std::string> v_s_repairer_flags_labels = {
+"repairerCanRepairUnits",
+"repairerCanRepairAnimals",
+"repairerCanRepairBuildings",
+"repairerCanRepairConstructions",
+"repairerCanConvertUnits",
+"repairerCanConvertAnimals",
+"repairerCanConvertBuildings",
+"repairerCanCaptureBuildings",
+"repairerNotTurnToTarget"
+};
+
+std::vector<std::string> v_s_bridge_borders_mask_labels = {
+    "lockedBridgeBorderN",
+"lockedBridgeBorderE",
+"lockedBridgeBorderS",
+"lockedBridgeBorderW"
+
+};
+
+std::vector<std::string> v_s_shadow_type_labels = {
+"_shadowSimple",
+"_shadowStatic",
+"_shadowAnimated",
+"_shadowVertical",
+"unknown1",
+"unknown2",
+"unknown3",
+"unknown4",
+"_moveWind",
+"_noReflect",
+"unknown5",
+"_hasNotBigEnoughBox",
+"_noSubObjectShadow",
+"_symmetricShadow",
+"unknown6",
+"unknown7",
+"_shadowOldStatic",
+"_shadowOldRound",
+"_shadowOldEllipse1",
+"_shadowOldEllipse2",
+"_shadowOldEllipse3",
+"_shadowOldTree",
+"_hasOldSoftwareRendering" };
+
+std::vector<std::string> v_s_target_type_labels = {
+"targetTypeGround",
+"targetTypeAir",
+"targetNoUnitOnTower",
+"turnExplosionToTarget" };
+
+std::vector<std::string> v_s_panel_pos_labels = {
+"tab1" };
+
+std::vector<std::string> v_s_build_building_flags_labels = {
+"unknown1",
+"unknown2",
+"unknown3",
+"unknown4",
+"buildAllowLZ0",
+"buildAllowLZ1",
+"buildTabBuildings",
+"buildTabConstructions",
+"buildAutoTurnToRoad",
+"buildingLockSold",
+"unknown5",
+"unknown6",
+"buildingNoChangeAltitude",
+"buildingNoChangeTerrain",
+"buildingNoRoadNeighbour",
+"towerNoChangePlayer",
+"gateNoChangePlayer",
+"gateNoUnitRequired",
+"cantBeCaptured",
+"haveLoopedDoorsSound",
+"gateLockEdge1",
+"gateLockEdge2",
+"researchUpdateButton",
+"initVisibleFlags",
+"noDarkVisibleFake" };
+
+
+
+vector<string> v_s_moveable_labels = {
     "classID",
     "mesh",
     "lowResMesh",
@@ -100,103 +396,104 @@ std::vector<std::string> moveable = {
 
 
 
-std::vector < std::string > shopunit = {
+vector <string> v_s_shop_unit_labels = {
     "classID",
-"mesh",
-"lowResMesh",
-"lowRes2Mesh",
-"interfaceMesh",
-"shadowType",
-"forceMeshHeight",
-"viewParamsIndex",
-"panelTemplateNum",
-"selectedTemplateNum",
-"listTemplateNum",
-"groupTemplateNum",
-"panelPos",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID",
-"hp",
-"hpRegenerationTicks",
-"armour1",
-"armour2",
-"armour3",
-"storeableFlags",
-"standType",
-"mapSign",
-"sightRange",
-"$talkPackID",
-"capturePercent",
-"capturePercentMul",
-"allowCaptureMask",
-"conversionPercentMul",
-"allowConversionMask",
-"maxMagic",
-"magicRegenerationTicks",
-"initMagicPercent",
-"killExperiencePoints",
-"unitDamage1",
-"unitDamage2",
-"unitDamage3",
-"slotType1",
-"slotType2",
-"slotType3",
-"slotType4",
-"slotType5",
-"slotType6",
-"slotType7",
-"slotType8",
-"$subObjectID1",
-"$subObjectID2",
-"$subObjectID3",
-"$subObjectID4",
-"$subObjectID5",
-"$subObjectID6",
-"$subObjectID7",
-"$subObjectID8",
-"$subObjectID9",
-"$subObjectID10",
-"$subObjectID11",
-"$subObjectID12",
-"moveableFlags",
-"$productionBuildingID",
-"formationPriority",
-"unitNameSet",
-"unitsListNumber",
-"soilSpeed",
-"roadSpeed",
-"sandSpeed",
-"bankSpeed",
-"waterSpeed",
-"deepWaterSpeed",
-"airSpeed",
-"camouflageSpeed",
-"runSpeed",
-"objectType",
-"$animParamsID",
-"$engineSmokeID",
-"$dustID",
-"$billowID",
-"$standBillowID",
-"$trackID",
-"$experienceExplosionID",
-"experienceExplosionPos",
-"experienceCustomAnimMask",
-"sleepModeHPRegAdd",
-"sleepModeMagicRegAdd",
-"sleepModeDamageMultiply",
-"exitTrapPercent",
-"exitTrapDamageMaxPercent",
-"scriptParams",
-"$childProtectHitExplosionID",
-"$childConversionExplosionID",
-"shopType" };
+    "mesh",
+    "lowResMesh",
+    "lowRes2Mesh",
+    "interfaceMesh",
+    "shadowType",
+    "forceMeshHeight",
+    "viewParamsIndex",
+    "panelTemplateNum",
+    "selectedTemplateNum",
+    "listTemplateNum",
+    "groupTemplateNum",
+    "panelPos",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID",
+    "hp",
+    "hpRegenerationTicks",
+    "armour1",
+    "armour2",
+    "armour3",
+    "storeableFlags",
+    "standType",
+    "mapSign",
+    "sightRange",
+    "$talkPackID",
+    "capturePercent",
+    "capturePercentMul",
+    "allowCaptureMask",
+    "conversionPercentMul",
+    "allowConversionMask",
+    "maxMagic",
+    "magicRegenerationTicks",
+    "initMagicPercent",
+    "killExperiencePoints",
+    "unitDamage1",
+    "unitDamage2",
+    "unitDamage3",
+    "slotType1",
+    "slotType2",
+    "slotType3",
+    "slotType4",
+    "slotType5",
+    "slotType6",
+    "slotType7",
+    "slotType8",
+    "$subObjectID1",
+    "$subObjectID2",
+    "$subObjectID3",
+    "$subObjectID4",
+    "$subObjectID5",
+    "$subObjectID6",
+    "$subObjectID7",
+    "$subObjectID8",
+    "$subObjectID9",
+    "$subObjectID10",
+    "$subObjectID11",
+    "$subObjectID12",
+    "moveableFlags",
+    "$productionBuildingID",
+    "formationPriority",
+    "unitNameSet",
+    "unitsListNumber",
+    "soilSpeed",
+    "roadSpeed",
+    "sandSpeed",
+    "bankSpeed",
+    "waterSpeed",
+    "deepWaterSpeed",
+    "airSpeed",
+    "camouflageSpeed",
+    "runSpeed",
+    "objectType",
+    "$animParamsID",
+    "$engineSmokeID",
+    "$dustID",
+    "$billowID",
+    "$standBillowID",
+    "$trackID",
+    "$experienceExplosionID",
+    "experienceExplosionPos",
+    "experienceCustomAnimMask",
+    "sleepModeHPRegAdd",
+    "sleepModeMagicRegAdd",
+    "sleepModeDamageMultiply",
+    "exitTrapPercent",
+    "exitTrapDamageMaxPercent",
+    "scriptParams",
+    "$childProtectHitExplosionID",
+    "$childConversionExplosionID",
+    "shopType" 
+};
 
-std::vector<std::string> rpgunit = {
+std::vector<std::string> v_s_rpg_unit_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -325,7 +622,7 @@ std::vector<std::string> rpgunit = {
 "$holdTrapID",
 "$dropGoldArtefactID" };
 
-std::vector <std::string> builder = {
+std::vector <std::string> v_s_builder_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -427,7 +724,7 @@ std::vector <std::string> builder = {
 "convertAnimalTime",
 "convertBuildingTime" };
 
-std::vector<std::string> repairer = {
+std::vector<std::string> v_s_repairer_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -530,7 +827,7 @@ std::vector<std::string> repairer = {
 "convertBuildingTime" };
 
 
-std::vector<std::string> harvester = {
+std::vector<std::string> v_s_harvester_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -630,7 +927,7 @@ std::vector<std::string> harvester = {
 "moneyPerExperiencePoint",
 "$ShitFlyingWasteID" };
 
-std::vector<std::string> cannon = {
+std::vector<std::string> v_s_cannon_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -687,7 +984,7 @@ std::vector<std::string> cannon = {
 "barrelExplosionOnSlot",
 "addCannonExtraDamageRandPercent" };
 
-std::vector<std::string> missile = {
+std::vector<std::string> v_s_missile_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -729,7 +1026,7 @@ std::vector<std::string> missile = {
 "$explosionID",
 "notDamageAllies" };
 
-std::vector<std::string> specialequipment = {
+std::vector<std::string> v_s_special_equipment_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -775,7 +1072,7 @@ std::vector<std::string> specialequipment = {
 "addExtraDamage2",
 "addExtraDamageRandPercent" };
 
-std::vector<std::string> magicequipment = {
+std::vector<std::string> v_s_magic_equipment_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -845,7 +1142,7 @@ std::vector<std::string> magicequipment = {
 "timedLifeMagicUnitMaxCount",
 "magicUpdateMinExperienceLevel" };
 
-std::vector<std::string> equipmentartefact = {
+std::vector<std::string> v_s_equipment_artefact_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -905,7 +1202,7 @@ std::vector<std::string> equipmentartefact = {
 "addDamage3",
 "$equipmentID" };
 
-std::vector<std::string> artefact = {
+std::vector<std::string> v_s_artefact_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -964,7 +1261,7 @@ std::vector<std::string> artefact = {
 "addDamage2",
 "addDamage3" };
 
-std::vector<std::string> lookroundequipment = {
+std::vector<std::string> v_s_look_round_equipment_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1010,7 +1307,7 @@ std::vector<std::string> lookroundequipment = {
 "$lookRoundEffectID",
 "showEffectForAllPlayers" };
 
-std::vector<std::string> lookroundequipmenteffect = {
+std::vector<std::string> v_s_look_round_equipment_effect_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1043,7 +1340,7 @@ std::vector<std::string> lookroundequipmenteffect = {
 "smallIconItem",
 "$updateBuildingID" };
 
-std::vector<std::string> equipment = {
+std::vector<std::string> v_s_equipment_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1076,7 +1373,7 @@ std::vector<std::string> equipment = {
 "smallIconItem",
 "$updateBuildingID" };
 
-std::vector<std::string> building = {
+std::vector<std::string> v_s_building_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1163,7 +1460,7 @@ std::vector<std::string> building = {
 "harvestEndBeg",
 "harvestEndEnd" };
 
-std::vector<std::string> passive = {
+std::vector<std::string> v_s_passive_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1205,7 +1502,7 @@ std::vector<std::string> passive = {
 "passiveRange",
 "$passiveAnimParamsID" };
 
-std::vector<std::string> specialpassive = {
+std::vector<std::string> v_s_special_passive_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1256,7 +1553,7 @@ std::vector<std::string> specialpassive = {
 "conversionTime",
 "conversionRequiredHPPercent" };
 
-std::vector<std::string> trap = {
+std::vector<std::string> v_s_trap_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1317,7 +1614,7 @@ std::vector<std::string> trap = {
 "trapExistTime",
 "holdExtraDamagePercent" };
 
-std::vector<std::string> verticalvehiclespy = {
+std::vector<std::string> v_s_vertical_vehicle_spy_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1383,7 +1680,7 @@ std::vector<std::string> verticalvehiclespy = {
 "verticalVehicleAnimationType",
 "flightLevel" };
 
-std::vector<std::string> verticalvehiclebomber = {
+std::vector<std::string> v_s_vertical_vehicle_bomber_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1450,7 +1747,7 @@ std::vector<std::string> verticalvehiclebomber = {
 "bombsCnt",
 "createDistanceFromTarget" };
 
-std::vector<std::string> explosion = {
+std::vector<std::string> v_s_explosion_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1482,7 +1779,7 @@ std::vector<std::string> explosion = {
 "explosionFlags",
 "explosionSoundDelay" };
 
-std::vector<std::string> multiexplosion = {
+std::vector<std::string> v_s_multi_explosion_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1538,7 +1835,7 @@ std::vector<std::string> multiexplosion = {
 "angle8",
 "dist4X8" };
 
-std::vector<std::string> smoke = {
+std::vector<std::string> v_s_smoke_labels = {
 "classID",
 "mesh",
 "lowResmesh",
@@ -1572,7 +1869,7 @@ std::vector<std::string> smoke = {
 "smokeUpSpeed",
 "newSmokeDistance" };
 
-std::vector<std::string> smokefire = {
+std::vector<std::string> v_s_smoke_fire_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1613,7 +1910,7 @@ std::vector<std::string> smokefire = {
 "smokeDamageTicks",
 "smokeTime" };
 
-std::vector<std::string> startingpositionmark = {
+std::vector<std::string> v_s_starting_position_mark_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1677,7 +1974,7 @@ std::vector<std::string> startingpositionmark = {
 "$subObjectID12",
 "positionType" };
 
-std::vector<std::string> aiplatoon = {
+std::vector<std::string> v_s_ai_platoon_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1740,7 +2037,7 @@ std::vector<std::string> aiplatoon = {
 "$subObjectID11",
 "$subObjectID12" };
 
-std::vector<std::string> flyingwaste = {
+std::vector<std::string> v_s_flying_waste_labels = {
 "classID",
 "mesh",
 "lowResMesh",
@@ -1782,7 +2079,7 @@ std::vector<std::string> flyingwaste = {
 "wasteDistanceX4",
 "wasteBeta" };
 
-std::vector<std::string> talkpacks = {
+std::vector<std::string> v_s_talk_packs_labels = {
 "talkPack1",
 "talkPack2",
 "talkPack3",
@@ -1814,7 +2111,7 @@ std::vector<std::string> talkpacks = {
 "talkPack29",
 "talkPack30" };
 
-std::vector<std::string> animparams = {
+std::vector<std::string> v_s_anim_params_labels = {
 "speedFactAccelerate",
 "speedFactorMove",
 "speedFactorBreak",
@@ -2023,7 +2320,7 @@ std::vector<std::string> animparams = {
 "animPutHoldTrapFrame",
 "animGetHoldTrapFrame" };
 
-std::vector<std::string> soundpack = {
+std::vector<std::string> v_s_sound_pack_labels = {
 "normalWavePack1",
 "normalWavePack2",
 "normalWavePack3",
@@ -2033,7 +2330,7 @@ std::vector<std::string> soundpack = {
 "loopedWavePack3",
 "loopedWavePack4" };
 
-std::vector<std::string> passiveanimparams = {
+std::vector<std::string> v_s_passive_anim_params_labels = {
 "anim1Beg",
 "anim1End",
 "anim2Beg",
@@ -2045,7 +2342,7 @@ std::vector<std::string> passiveanimparams = {
 "anim5Beg",
 "anim5End" };
 
-std::vector<std::string> talkpackdelays = {
+std::vector<std::string> v_s_talk_pack_delays_labels = {
 "talkPackDelay1",
 "talkPack1MapSign",
 "talkPack1MapSignTime",
@@ -2137,7 +2434,7 @@ std::vector<std::string> talkpackdelays = {
 "talkPack30MapSign",
 "talkPack30MapSignTime" };
 
-std::vector<std::string> playertalkpack = {
+std::vector<std::string> v_s_player_talk_pack_labels = {
 "talkPack1",
 "talkPack2",
 "talkPack3",
@@ -2153,7 +2450,7 @@ std::vector<std::string> playertalkpack = {
 "talkPack13",
 "talkPack14" };
 
-std::vector<std::string> playertalkpackdelays = {
+std::vector<std::string> v_s_player_talk_pack_delays_labels = {
 "talkPackDelay1",
 "talkPackMapSign1",
 "talkPackMapSignTime1",
@@ -2197,7 +2494,7 @@ std::vector<std::string> playertalkpackdelays = {
 "talkPackMapSign14",
 "talkPackMapSignTime14" };
 
-std::vector<std::string> musicpack = {
+std::vector<std::string> v_s_music_pack_labels = {
 "mainMusic",
 "statisticVictoryMusic",
 "statisticDefeatMusic",
@@ -2226,7 +2523,7 @@ std::vector<std::string> musicpack = {
 "warMusic7",
 "warMusic8" };
 
-std::vector<std::string> experienceparams = {
+std::vector<std::string> v_s_experience_params_labels = {
 "levelPoints",
 "harvesterLevelPoints",
 "convertLevelPoints",
@@ -2240,14 +2537,14 @@ std::vector<std::string> experienceparams = {
 "maxHarvesterMoneyAdd",
 "convertPercentAdd" };
 
-std::vector<std::string> meshbuttonviewparams = {
+std::vector<std::string> v_s_mesh_button_view_params_labels = {
 "posX",
 "posY",
 "posZ",
 "posAlpha",
 "posBeta" };
 
-std::vector<std::string> selectionmeshes = {
+std::vector<std::string> v_s_selection_meshes_labels = {
 "road",
 "roadOnBridge",
 "roadBad",
@@ -2273,11 +2570,11 @@ std::vector<std::string> selectionmeshes = {
 "commandOther3x3",
 "commandOther4x1" };
 
-std::vector<std::string> specialupdateslinks = {
+std::vector<std::string> v_s_special_updates_links_labels = {
 "$specialUpdateLink",
 };
 
-std::vector<std::string> racedata = {
+std::vector<std::string> v_s_race_data_labels = {
 "raceIdentifier",
 "raceFlags",
 "buildFlags",
@@ -2309,333 +2606,417 @@ std::vector<std::string> racedata = {
 "defaultInterface",
 "$selectionMeshes" };
 
-std::vector<std::string> rpgparams = {
+std::vector<std::string> v_s_rpg_params_labels = {
 "pointsCost",
 "value1",
 "value2",
 "value3" };
 
-std::vector<std::string> rpgexperience = {
+std::vector<std::string> v_s_rpg_experience_labels = {
 "experiencePoints",
 "addRPGPoints",
 "addHireCost",
 "addHPLevel",
 "addDamageLevel" };
 
-std::vector<std::string> verticalvehicle = {
-"classID",
-"mesh",
-"lowResMesh",
-"lowRes2Mesh",
-"interfaceMesh",
-"shadowType",
-"forceMeshHeight",
-"viewParamsIndex",
-"panelTemplateNum",
-"selectedTemplateNum",
-"listTemplateNum",
-"groupTemplateNum",
-"panelPos",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID",
-"hp",
-"hpRegenerationTicks",
-"armour1",
-"armour2",
-"armour3",
-"storeableFlags",
-"standType",
-"mapSign",
-"sightRange",
-"$talkPackID",
-"capturePercent",
-"capturePercentMul",
-"allowCaptureMask",
-"conversionPercentMul",
-"allowConversionMask",
-"maxMagic",
-"magicRegenerationTicks",
-"initMagicPercent",
-"killExperiencePoints",
-"unitDamage1",
-"unitDamage2",
-"unitDamage3",
-"slotType1",
-"slotType2",
-"slotType3",
-"slotType4",
-"slotType5",
-"slotType6",
-"slotType7",
-"slotType8",
-"$subObjectID1",
-"$subObjectID2",
-"$subObjectID3",
-"$subObjectID4",
-"$subObjectID5",
-"$subObjectID6",
-"$subObjectID7",
-"$subObjectID8",
-"$subObjectID9",
-"$subObjectID10",
-"$subObjectID11",
-"$subObjectID12",
-"vehicleSpeed",
-"verticalVehicleAnimationType" };
+vector<string> v_s_vertical_vehicle_labels = {
+    "classID",
+    "mesh",
+    "lowResMesh",
+    "lowRes2Mesh",
+    "interfaceMesh",
+    "shadowType",
+    "forceMeshHeight",
+    "viewParamsIndex",
+    "panelTemplateNum",
+    "selectedTemplateNum",
+    "listTemplateNum",
+    "groupTemplateNum",
+    "panelPos",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID",
+    "hp",
+    "hpRegenerationTicks",
+    "armour1",
+    "armour2",
+    "armour3",
+    "storeableFlags",
+    "standType",
+    "mapSign",
+    "sightRange",
+    "$talkPackID",
+    "capturePercent",
+    "capturePercentMul",
+    "allowCaptureMask",
+    "conversionPercentMul",
+    "allowConversionMask",
+    "maxMagic",
+    "magicRegenerationTicks",
+    "initMagicPercent",
+    "killExperiencePoints",
+    "unitDamage1",
+    "unitDamage2",
+    "unitDamage3",
+    "slotType1",
+    "slotType2",
+    "slotType3",
+    "slotType4",
+    "slotType5",
+    "slotType6",
+    "slotType7",
+    "slotType8",
+    "$subObjectID1",
+    "$subObjectID2",
+    "$subObjectID3",
+    "$subObjectID4",
+    "$subObjectID5",
+    "$subObjectID6",
+    "$subObjectID7",
+    "$subObjectID8",
+    "$subObjectID9",
+    "$subObjectID10",
+    "$subObjectID11",
+    "$subObjectID12",
+    "vehicleSpeed",
+    "verticalVehicleAnimationType" 
+};
 
-std::vector<std::string> scriptedactive = {
-"classID",
-"mesh",
-"lowResMesh",
-"lowRes2Mesh",
-"interfaceMesh",
-"shadowType",
-"forceMeshHeight",
-"viewParamsIndex",
-"panelTemplateNum",
-"selectedTemplateNum",
-"listTemplateNum",
-"groupTemplateNum",
-"panelPos",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID",
-"hp",
-"hpRegenerationTicks",
-"armour1",
-"armour2",
-"armour3",
-"storeableFlags",
-"standType",
-"mapSign",
-"sightRange",
-"$talkPackID",
-"capturePercent",
-"capturePercentMul",
-"allowCaptureMask",
-"conversionPercentMul",
-"allowConversionMask",
-"maxMagic",
-"magicRegenerationTicks",
-"initMagicPercent",
-"killExperiencePoints",
-"unitDamage1",
-"unitDamage2",
-"unitDamage3",
-"slotType1",
-"slotType2",
-"slotType3",
-"slotType4",
-"slotType5",
-"slotType6",
-"slotType7",
-"slotType8",
-"$subObjectID1",
-"$subObjectID2",
-"$subObjectID3",
-"$subObjectID4",
-"$subObjectID5",
-"$subObjectID6",
-"$subObjectID7",
-"$subObjectID8",
-"$subObjectID9",
-"$subObjectID10",
-"$subObjectID11",
-"$subObjectID12" };
+vector<string> v_s_scripted_active_labels = {
+    "classID",
+    "mesh",
+    "lowResMesh",
+    "lowRes2Mesh",
+    "interfaceMesh",
+    "shadowType",
+    "forceMeshHeight",
+    "viewParamsIndex",
+    "panelTemplateNum",
+    "selectedTemplateNum",
+    "listTemplateNum",
+    "groupTemplateNum",
+    "panelPos",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID",
+    "hp",
+    "hpRegenerationTicks",
+    "armour1",
+    "armour2",
+    "armour3",
+    "storeableFlags",
+    "standType",
+    "mapSign",
+    "sightRange",
+    "$talkPackID",
+    "capturePercent",
+    "capturePercentMul",
+    "allowCaptureMask",
+    "conversionPercentMul",
+    "allowConversionMask",
+    "maxMagic",
+    "magicRegenerationTicks",
+    "initMagicPercent",
+    "killExperiencePoints",
+    "unitDamage1",
+    "unitDamage2",
+    "unitDamage3",
+    "slotType1",
+    "slotType2",
+    "slotType3",
+    "slotType4",
+    "slotType5",
+    "slotType6",
+    "slotType7",
+    "slotType8",
+    "$subObjectID1",
+    "$subObjectID2",
+    "$subObjectID3",
+    "$subObjectID4",
+    "$subObjectID5",
+    "$subObjectID6",
+    "$subObjectID7",
+    "$subObjectID8",
+    "$subObjectID9",
+    "$subObjectID10",
+    "$subObjectID11",
+    "$subObjectID12" 
+};
 
-std::vector<std::string> active = {
-"classID",
-"mesh",
-"lowResMesh",
-"lowRes2Mesh",
-"interfaceMesh",
-"shadowType",
-"forceMeshHeight",
-"viewParamsIndex",
-"panelTemplateNum",
-"selectedTemplateNum",
-"listTemplateNum",
-"groupTemplateNum",
-"panelPos",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID",
-"hp",
-"hpRegenerationTicks",
-"armour1",
-"armour2",
-"armour3",
-"storeableFlags",
-"standType",
-"mapSign",
-"sightRange",
-"$talkPackID",
-"capturePercent",
-"capturePercentMul",
-"allowCaptureMask",
-"conversionPercentMul",
-"allowConversionMask",
-"maxMagic",
-"magicRegenerationTicks",
-"initMagicPercent",
-"killExperiencePoints",
-"unitDamage1",
-"unitDamage2",
-"unitDamage3",
-"slotType1",
-"slotType2",
-"slotType3",
-"slotType4",
-"slotType5",
-"slotType6",
-"slotType7",
-"slotType8",
-"$subObjectID1",
-"$subObjectID2",
-"$subObjectID3",
-"$subObjectID4",
-"$subObjectID5",
-"$subObjectID6",
-"$subObjectID7",
-"$subObjectID8",
-"$subObjectID9",
-"$subObjectID10",
-"$subObjectID11",
-"$subObjectID12" };
+vector<string> v_s_active_labels = {
+    "classID",
+    "mesh",
+    "lowResMesh",
+    "lowRes2Mesh",
+    "interfaceMesh",
+    "shadowType",
+    "forceMeshHeight",
+    "viewParamsIndex",
+    "panelTemplateNum",
+    "selectedTemplateNum",
+    "listTemplateNum",
+    "groupTemplateNum",
+    "panelPos",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID",
+    "hp",
+    "hpRegenerationTicks",
+    "armour1",
+    "armour2",
+    "armour3",
+    "storeableFlags",
+    "standType",
+    "mapSign",
+    "sightRange",
+    "$talkPackID",
+    "capturePercent",
+    "capturePercentMul",
+    "allowCaptureMask",
+    "conversionPercentMul",
+    "allowConversionMask",
+    "maxMagic",
+    "magicRegenerationTicks",
+    "initMagicPercent",
+    "killExperiencePoints",
+    "unitDamage1",
+    "unitDamage2",
+    "unitDamage3",
+    "slotType1",
+    "slotType2",
+    "slotType3",
+    "slotType4",
+    "slotType5",
+    "slotType6",
+    "slotType7",
+    "slotType8",
+    "$subObjectID1",
+    "$subObjectID2",
+    "$subObjectID3",
+    "$subObjectID4",
+    "$subObjectID5",
+    "$subObjectID6",
+    "$subObjectID7",
+    "$subObjectID8",
+    "$subObjectID9",
+    "$subObjectID10",
+    "$subObjectID11",
+    "$subObjectID12" 
+};
 
-std::vector<std::string> generic = {
-"classID",
-"mesh",
-"lowResMesh",
-"lowRes2Mesh",
-"interfaceMesh",
-"shadowType",
-"forceMeshHeight",
-"viewParamsIndex",
-"panelTemplateNum",
-"selectedTemplateNum",
-"listTemplateNum",
-"groupTemplateNum",
-"panelPos",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID" };
+vector<string> v_s_generic_labels = {
+    "classID",
+    "mesh",
+    "lowResMesh",
+    "lowRes2Mesh",
+    "interfaceMesh",
+    "shadowType",
+    "forceMeshHeight",
+    "viewParamsIndex",
+    "panelTemplateNum",
+    "selectedTemplateNum",
+    "listTemplateNum",
+    "groupTemplateNum",
+    "panelPos",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID" 
+};
 
-std::vector<std::string> mine = {
-"classID",
-"mesh",
-"shadowType",
-"viewParamsIndex",
-"cost",
-"timeOfBuild",
-"$soundPackID",
-"$smokeID",
-"$killExplosionID",
-"$destructedID",
-"hp",
-"regenerationHP",
-"armour",
-"calorificCapacity",
-"disableResist",
-"storeableFlags",
-"standType",
-"mineSize",
-"mineTypeOfDamage",
-"mineDamage" };
+vector<string> v_s_mine_labels = {
+    "classID",
+    "mesh",
+    "shadowType",
+    "viewParamsIndex",
+    "cost",
+    "timeOfBuild",
+    "$soundPackID",
+    "$smokeID",
+    "$killExplosionID",
+    "$destructedID",
+    "hp",
+    "regenerationHP",
+    "armour",
+    "calorificCapacity",
+    "disableResist",
+    "storeableFlags",
+    "standType",
+    "mineSize",
+    "mineTypeOfDamage",
+    "mineDamage" 
+};
+
+void Object::PrintLabels(BinFile& bin_file, vector<string>& labels)
+{
+    int i = 0;
+
+    size_t delta = (m_logic_table_bits.length() + 1) / 2;
+    if (delta > labels.size())
+    {
+        delta -= labels.size();
+
+        for (int j = 0; j < delta; ++j)
+            labels.push_back("ExtraField" + to_string(j));
+    }
+
+    bool is_special = false;
+
+    for (string& label : labels)
+    {
+
+        if (label[0] == '$')
+        {
+            is_special = true;
+        }
+        else
+        {
+            is_special = false;
+        }
+
+        switch (m_logic_table_bits[i])
+        {
+        case '0':
+            CheckIfItIsAMaskLabel(bin_file, label);
+        break;
+
+        case '1':
+
+            if (is_special == true)
+            {
+                string str_field = bin_file.ReadString();
+                this->m_cpp_file.WriteString(1, label, str_field);
+
+                uint32_t var_field = 0;
+                bin_file.ReadValue(var_field);
+                this->m_cpp_file.WriteTrivialValue(1, label, var_field);
+            }
+            else
+            {
+                string str_field = bin_file.ReadString();
+                this->m_cpp_file.WriteString(1, label, str_field);
+            }
+            break;
+
+        default: break;
+        }
 
 
+        if (is_special == true)
+        {
+            i += 2;
+        }
 
-void ParDecompilerOverlay::SelectLabelsForClassId()
+        i += 2;
+
+        if (i > m_logic_table_bits.length() - 1) break;
+
+    }
+
+}
+
+
+void Object::SelectAndPrintLabelsForClassId(BinFile& bin_file)
 {
     uint32_t help_mask = 0x00FFFFFF;
 
-    uint32_t help_classid = m_classid & help_mask;
+    uint32_t help_classid = this->m_classid & help_mask;
+
+    uint32_t var_field = 0;
+    string str_field = string();
 
     if (help_classid == help_mask)
     {
-        switch (m_classid)
+        switch (this->m_classid)
         {
-        case 0x01FFFFFF:
-            PrintLabels(talkpacks);
-            break;
+        case OTHER_CLASS_ID_TALK_PACKS:
+            PrintLabels(bin_file, v_s_talk_packs_labels);
+        break;
 
-        case 0x02FFFFFF:
-            PrintLabels(animparams);
-            break;
+        case OTHER_CLASS_ID_ANIM_PARAMS:
+            PrintLabels(bin_file, v_s_anim_params_labels);
+        break;
 
-        case 0x03FFFFFF:
-            PrintLabels(soundpack);
-            break;
+        case OTHER_CLASS_ID_SOUND_PACK:
+            PrintLabels(bin_file, v_s_sound_pack_labels);
+        break;
 
-        case 0x04FFFFFF:
-            PrintLabels(passiveanimparams);
-            break;
+        case OTHER_CLASS_ID_PASSIVE_ANIM_PARAMS:
+            PrintLabels(bin_file, v_s_passive_anim_params_labels);
+        break;
 
-        case 0x05FFFFFF:
-            PrintLabels(talkpackdelays);
-            break;
+        case OTHER_CLASS_ID_TALK_PACK_DELAYS:
+            PrintLabels(bin_file, v_s_talk_pack_delays_labels);
+        break;
 
-        case 0x06FFFFFF:
-            PrintLabels(playertalkpack);
-            break;
+        case OTHER_CLASS_ID_PLAYER_TALK_PACK:
+            PrintLabels(bin_file, v_s_player_talk_pack_labels);
+        break;
 
-        case 0x07FFFFFF:
-            PrintLabels(playertalkpackdelays);
-            break;
+        case OTHER_CLASS_ID_PLAYER_TALK_PACK_DELAYS:
+            PrintLabels(bin_file, v_s_player_talk_pack_delays_labels);
+        break;
 
-        case 0x08FFFFFF:
-            PrintLabels(musicpack);
-            break;
+        case OTHER_CLASS_ID_MUSIC_PACK:
+            PrintLabels(bin_file, v_s_music_pack_labels);
+        break;
 
-        case 0x09FFFFFF:
-            PrintLabels(experienceparams);
-            break;
+        case OTHER_CLASS_ID_EXPERIENCE_PARAMS:
+            PrintLabels(bin_file, v_s_experience_params_labels);
+        break;
 
-        case 0x0AFFFFFF:
-            PrintLabels(meshbuttonviewparams);
-            break;
+        case OTHER_CLASS_ID_MESH_BUTTON_VIEW_PARAMS:
+            PrintLabels(bin_file, v_s_mesh_button_view_params_labels);
+        break;
 
-        case 0x0BFFFFFF:
-            PrintLabels(selectionmeshes);
-            break;
+        case OTHER_CLASS_ID_SELECTION_MESHES:
+            PrintLabels(bin_file, v_s_selection_meshes_labels);
+        break;
 
-        case 0x0CFFFFFF:
-            PrintLabels(specialupdateslinks);
-            break;
+        case OTHER_CLASS_ID_SPECIAL_UPDATES_LINKS:
+            PrintLabels(bin_file, v_s_special_updates_links_labels);
+        break;
 
-        case 0x0DFFFFFF:
-            PrintLabels(racedata);
-            break;
+        case OTHER_CLASS_ID_RACE_DATA:
+            PrintLabels(bin_file, v_s_race_data_labels);
+        break;
 
-        case 0x0EFFFFFF:
-            PrintLabels(rpgparams);
-            break;
+        case OTHER_CLASS_ID_RPG_PARAMS:
+            PrintLabels(bin_file, v_s_rpg_params_labels);
+        break;
 
-        case 0x0FFFFFFF:
-            PrintLabels(rpgexperience);
-            break;
+        case OTHER_CLASS_ID_RPG_EXPERIENCE:
+            PrintLabels(bin_file, v_s_rpg_experience_labels);
+        break;
 
         default:
-            for (int i = 0; i < m_bits.length(); i++)
+            for (int i = 0; i < m_logic_table_bits.length(); i++)
             {
-                switch (m_bits[i])
+                switch (m_logic_table_bits[i])
                 {
-                case '0': myInputParUtil.WriteINT<uint32_t>(32, "var_field", 1, m_data); break;
-                case '1': myInputParUtil.WriteSTRING("str_field", 1, m_data); break;
-                default: break;
+                    case '0': 
+                        bin_file.ReadValue(var_field);
+                        this->m_cpp_file.WriteTrivialValue(1, "var_field", var_field);
+                    break;
+
+                    case '1': 
+                        str_field = bin_file.ReadString();
+                        this->m_cpp_file.WriteString(1, "str_field", str_field);
+                    break;
+
+                    default: 
+                    break;
                 }
             }
             break;
@@ -2645,474 +3026,715 @@ void ParDecompilerOverlay::SelectLabelsForClassId()
         return;
     }
 
-    if ((m_classid == ANIMATEDPASSIVE) || (m_classid == ANIMALPASSIVE) || (m_classid == BUILDPASSIVE) || (m_classid == GHOSTPASSIVE) ||
-        (m_classid == TRANSIENTPASSIVE) || (m_classid == PASSIVE))
+    if (
+        (this->m_classid == ANIMATEDPASSIVE)
+        || 
+        (this->m_classid == ANIMALPASSIVE)
+        || 
+        (this->m_classid == BUILDPASSIVE)
+        || 
+        (this->m_classid == GHOSTPASSIVE)
+        ||
+        (this->m_classid == TRANSIENTPASSIVE)
+        || 
+        (this->m_classid == PASSIVE)
+       )
     {
-        PrintLabels(passive);
+        PrintLabels(bin_file, v_s_passive_labels);
         return;
     }
 
-    if ((m_classid == SPECIALEQUIPMENT) || (m_classid == SPECIALEQUIPMENTEX))
+    if ((this->m_classid == SPECIALEQUIPMENT) || (this->m_classid == SPECIALEQUIPMENTEX))
     {
-        PrintLabels(specialequipment);
-        return;
-    }
-
-    
-    if ((m_classid == STOREABLE) || (m_classid == DYNAMIC) || (m_classid == GENERIC) || (m_classid == VISIBLEFAKE))
-    {
-        PrintLabels(generic);
-        return;
-    }
-
-    if ((m_classid == EXPLOSION) || (m_classid == EXPLOSIONEX))
-    {
-        PrintLabels(explosion);
+        PrintLabels(bin_file, v_s_special_equipment_labels);
         return;
     }
 
 
-    switch (m_classid)
+    if (
+        (this->m_classid == STOREABLE) 
+        || 
+        (this->m_classid == DYNAMIC)
+        || 
+        (this->m_classid == GENERIC)
+        || 
+        (this->m_classid == VISIBLEFAKE)
+       )
     {
-    
-    case MOVEABLE:
-        PrintLabels(moveable);
+        PrintLabels(bin_file, v_s_generic_labels);
+        return;
+    }
+
+    if ((this->m_classid == EXPLOSION) || (this->m_classid == EXPLOSIONEX))
+    {
+        PrintLabels(bin_file, v_s_explosion_labels);
+        return;
+    }
+
+
+    switch (this->m_classid)
+    {
+        case MOVEABLE:
+            PrintLabels(bin_file, v_s_moveable_labels);
         break;
 
-    case SHOPUNIT:
-        PrintLabels(shopunit);
+        case SHOPUNIT:
+            PrintLabels(bin_file, v_s_shop_unit_labels);
         break;
 
-    case RPGUNIT:
-        PrintLabels(rpgunit);
+        case RPGUNIT:
+            PrintLabels(bin_file, v_s_rpg_unit_labels);
         break;
 
-    case BUILDER:
-        PrintLabels(builder);
+        case BUILDER:
+            PrintLabels(bin_file, v_s_builder_labels);
         break;
 
-    case REPAIRER:
-        PrintLabels(repairer);
+        case REPAIRER:
+            PrintLabels(bin_file, v_s_repairer_labels);
         break;
 
-    case HARVESTER:
-        PrintLabels(harvester);
+        case HARVESTER:
+            PrintLabels(bin_file, v_s_harvester_labels);
         break;
 
-    case CANNON:
-        PrintLabels(cannon);
+        case CANNON:
+            PrintLabels(bin_file, v_s_cannon_labels);
         break;
 
-    case MISSILE:
-        PrintLabels(missile);
+        case MISSILE:
+            PrintLabels(bin_file, v_s_missile_labels);
         break;
 
-    
-    case MAGICEQUIPMENT:
-        PrintLabels(magicequipment);
+        case MAGICEQUIPMENT:
+            PrintLabels(bin_file, v_s_magic_equipment_labels);
         break;
 
-    case EQUIPMENTARTEFACT:
-        PrintLabels(equipmentartefact);
+        case EQUIPMENTARTEFACT:
+            PrintLabels(bin_file, v_s_equipment_artefact_labels);
         break;
 
-    case ARTEFACT:
-        PrintLabels(artefact);
+        case ARTEFACT:
+            PrintLabels(bin_file, v_s_artefact_labels);
         break;
 
-    case LOOKROUNDEQUIPMENT:
-        PrintLabels(lookroundequipment);
+        case LOOKROUNDEQUIPMENT:
+            PrintLabels(bin_file, v_s_look_round_equipment_labels);
         break;
 
-    case LOOKROUNDEQUIPMENTEFFECT:
-        PrintLabels(lookroundequipmenteffect);
+        case LOOKROUNDEQUIPMENTEFFECT:
+            PrintLabels(bin_file, v_s_look_round_equipment_effect_labels);
         break;
 
-    case EQUIPMENT:
-        PrintLabels(equipment);
+        case EQUIPMENT:
+            PrintLabels(bin_file, v_s_equipment_labels);
+        break;
+
+        case BUILDING:
+            PrintLabels(bin_file, v_s_building_labels);
+        break;
+
+        //active
+        case ACTIVE:
+            PrintLabels(bin_file, v_s_active_labels);
+        break;
+
+        //mine
+        case MINE:
+            PrintLabels(bin_file, v_s_mine_labels);
+        break;
+
+        case SPECIALPASSIVE:
+            PrintLabels(bin_file, v_s_special_passive_labels);
+        break;
+
+        case TRAP:
+            PrintLabels(bin_file, v_s_trap_labels);
+        break;
+
+        case SCRIPTEDACTIVE:
+            PrintLabels(bin_file, v_s_scripted_active_labels);
+        break;
+
+        case VERTICALVEHICLE:
+            PrintLabels(bin_file, v_s_vertical_vehicle_labels);
+        break;
+
+        case VERTICALVEHICLESPY:
+            PrintLabels(bin_file, v_s_vertical_vehicle_spy_labels);
+        break;
+
+        case VERTICALVEHICLEBOMBER:
+            PrintLabels(bin_file, v_s_vertical_vehicle_bomber_labels);
         break;
 
 
-    case BUILDING:
-        PrintLabels(building);
+        case MULTIEXPLOSION:
+            PrintLabels(bin_file, v_s_multi_explosion_labels);
         break;
 
-    //active
-    case ACTIVE:
-        PrintLabels(active);
-    break;
-
-    //mine
-    case MINE:
-        PrintLabels(mine);
-    break;
-
-    case SPECIALPASSIVE:
-        PrintLabels(specialpassive);
+        case SMOKE:
+            PrintLabels(bin_file, v_s_smoke_labels);
         break;
 
-    case TRAP:
-        PrintLabels(trap);
+        case SMOKEFIRE:
+            PrintLabels(bin_file, v_s_smoke_fire_labels);
         break;
 
-    case SCRIPTEDACTIVE:
-        PrintLabels(scriptedactive);
+        case STARTINGPOSITIONMARK:
+            PrintLabels(bin_file, v_s_starting_position_mark_labels);
         break;
 
-    case VERTICALVEHICLE:
-        PrintLabels(verticalvehicle);
+        case AIPLATOON:
+            PrintLabels(bin_file, v_s_ai_platoon_labels);
         break;
 
-    case VERTICALVEHICLESPY:
-        PrintLabels(verticalvehiclespy);
+        case FLYINGWASTE:
+            PrintLabels(bin_file, v_s_flying_waste_labels);
         break;
-
-    case VERTICALVEHICLEBOMBER:
-        PrintLabels(verticalvehiclebomber);
-        break;
-
-
-    case MULTIEXPLOSION:
-        PrintLabels(multiexplosion);
-    break;
-
-    case SMOKE:
-        PrintLabels(smoke);
-    break;
-
-    case SMOKEFIRE:
-        PrintLabels(smokefire);
-    break;
-
-    case STARTINGPOSITIONMARK:
-        PrintLabels(startingpositionmark);
-    break;
-
-    case AIPLATOON:
-        PrintLabels(aiplatoon);
-    break;
-
-    case FLYINGWASTE:
-        PrintLabels(flyingwaste);
-    break;
 
     default:
 
-        for (int i = 0; i < m_bits.length(); i++)
+        for (int i = 0; i < m_logic_table_bits.length(); i++)
         {
-            switch (m_bits[i])
+            switch (m_logic_table_bits[i])
             {
-            case '0': myInputParUtil.WriteINT<uint32_t>(32, "var_field", 1, m_data); break;
-            case '1': myInputParUtil.WriteSTRING("str_field", 1, m_data); break;
-            default: break;
+                case '0': 
+                    bin_file.ReadValue(var_field);
+                    this->m_cpp_file.WriteTrivialValue(1, "var_field", var_field);
+                break;
+
+                case '1': 
+                    str_field = bin_file.ReadString();
+                    this->m_cpp_file.WriteString(1, "str_field", str_field);
+                break;
+                
+                default: 
+                break;
             }
         }
 
-    break;
+        break;
 
     }
+
+
+}
+
+void Object::CheckMaskLabelsAndCorrect(vector<string>& mask_labels)
+{
+    if (mask_labels.size() < Globals::number_of_bits_in_int)
+    {
+        size_t delta = Globals::number_of_bits_in_int - mask_labels.size();
+        for (int j = 0; j < delta; ++j)
+        {
+            mask_labels.push_back("ExtraFlag" + std::to_string(j));
+        }
+    }
+
+}
+
+void Object::CheckIfItIsAMaskLabel(BinFile& bin_file, string& label)
+{
+    uint8_t temp_uint8_val = 0;
+    uint16_t temp_uint16_val = 0;
+    uint32_t temp_val = 0;
+
+    array<uint8_t, sizeof(uint32_t) - 1> temp_uint8_array_3 = {};
+    array<uint8_t, sizeof(uint32_t)> temp_uint8_array_4 = {};
+    array<uint8_t, sizeof(uint16_t)> temp_uint8_array_2 = {};
+    array<uint8_t, sizeof(uint8_t)> temp_uint8_array_1 = {};
+
+    if (label == "mapSign")
+    {
+        int32_t map_sign_value = 0;
+        bin_file.ReadValue(map_sign_value);
+        this->m_cpp_file.WriteTrivialValue(1, label, map_sign_value);
+        return;
+    }
+
+    if (
+        (label == "moveableFlags") 
+        && 
+        (this->m_config_switches.moveable_flags_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_moveable_flags_labels);
+
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_moveable_flags_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+    if (
+        (label == "buildBuildingFlags") 
+        && 
+        (this->m_config_switches.build_building_flags_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_build_building_flags_labels);
+
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_build_building_flags_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+    if (
+        (label == "plugType") 
+        && 
+        (this->m_config_switches.plug_type_switch == true) 
+        && 
+        (m_classid == MAGICEQUIPMENT) 
+        && 
+        (this->m_obj_name.starts_with("RPG_"))
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_rpg_plug_type_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_rpg_plug_type_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+    if (
+        (label == "plugType") 
+        && 
+        (this->m_config_switches.plug_type_switch == true)
+        && 
+        (this->m_classid == MAGICEQUIPMENT)
+        )
+    {
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_slot_type_8_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+
+    if (
+        (label == "plugType") 
+        && 
+        (this->m_config_switches.plug_type_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_plug_types_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_plug_types_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+
+    if (
+        (label.starts_with("slotType8"))
+        && 
+        (this->m_config_switches.slot_type_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_slot_type_8_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_slot_type_8_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+
+    if (
+        (label.starts_with("slotType"))
+        && 
+        (this->m_config_switches.slot_type_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_slot_types_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_slot_types_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+    if (
+        (label == "storeableFlags") 
+        && 
+        (this->m_config_switches.storeable_flags_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_storeable_flags_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_storeable_flags_labels, temp_uint8_array_4, label);
+        return;
+    }
+
+    if (
+        (label == "RPGUnitFlags") 
+        && 
+        (this->m_config_switches.rpg_unit_flags_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_rpg_unit_flags_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_rpg_unit_flags_labels, temp_uint8_array_4, label);
+
+        return;
+    }
+
+    if (
+        (label == "artefactMask") 
+        && 
+        (this->m_config_switches.artefact_mask_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_artefact_mask_labels);
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_artefact_mask_labels, temp_uint8_array_4, label);
+
+        return;
+    }
+
+    if (
+        (label == "repairerFlags") 
+        && 
+        (this->m_config_switches.repairer_flags_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_repairer_flags_labels);
+
+        bin_file.ReadValue(temp_uint8_array_2);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_repairer_flags_labels, temp_uint8_array_2, "first two bytes of " + label);
+
+        bin_file.ReadValue(temp_uint16_val);
+        this->m_cpp_file.WriteTrivialValue(1, label, temp_uint16_val);
+        this->m_cpp_file << endl;
+
+        return;
+    }
+
+    if (
+        (label == "bridgeBordersMask") 
+        && 
+        (this->m_config_switches.bridge_borders_mask_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_bridge_borders_mask_labels);
+
+        bin_file.ReadValue(temp_uint8_array_1);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_bridge_borders_mask_labels, temp_uint8_array_1, label);
+
+        bin_file.ReadValue(temp_uint8_array_3);
+        this->m_cpp_file.WriteTrivialArray(1, label, temp_uint8_array_3);
+        this->m_cpp_file << endl;
+
+        return;
+    }
+
+    if (
+        (label == "shadowType") 
+        && 
+        (this->m_config_switches.shadow_type_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_shadow_type_labels);
+
+        bin_file.ReadValue(temp_uint8_array_3);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_shadow_type_labels, temp_uint8_array_3, label);
+
+        bin_file.ReadValue(temp_uint8_val);
+        this->m_cpp_file.WriteTrivialValue(1, label, temp_uint8_val);
+        this->m_cpp_file << endl;
+
+        return;
+    }
+
+    if (
+        (label == "targetType") 
+        && 
+        (this->m_config_switches.target_type_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_target_type_labels);
+
+        bin_file.ReadValue(temp_uint8_array_1);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_target_type_labels, temp_uint8_array_1, label);
+
+        bin_file.ReadValue(temp_uint8_array_3);
+        this->m_cpp_file.WriteTrivialArray(1, label, temp_uint8_array_3);
+        this->m_cpp_file << endl;
+
+        return;
+    }
+
+
+    if (
+        (label == "lookRoundTypeMask") 
+        && 
+        (this->m_config_switches.look_round_type_mask_switch == true)
+        )
+    {
+        CheckMaskLabelsAndCorrect(v_s_look_round_type_mask_labels);
+
+        bin_file.ReadValue(temp_uint8_array_4);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_look_round_type_mask_labels, temp_uint8_array_4, label);
+
+        return;
+    }
+
+
+    if (
+        (label == "passiveMask") 
+        && 
+        (this->m_config_switches.passive_mask_switch == true)
+        )
+    {
+
+        bin_file.ReadValue(temp_uint8_val);
+        this->m_cpp_file.WriteNBitMask<uint8_t>
+            (
+                1, 
+                "passiveMask", 
+                temp_uint8_val, 
+                "first byte of " + label, 
+                this->m_hash_maps.m_list_of_passive_masks
+            );
+
+        CheckMaskLabelsAndCorrect(v_s_passive_mask_labels);
+
+        bin_file.ReadValue(temp_uint8_array_3);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_passive_mask_labels, temp_uint8_array_3, "rest bytes of " + label);
+
+        return;
+    }
+
+    if (
+        (label == "panelPos") 
+        && 
+        (this->m_config_switches.panel_pos_switch == true)
+        )
+    {
+        this->m_cpp_file << endl;
+        bin_file.ReadValue(temp_uint16_val);
+        this->m_cpp_file.WriteTrivialValue(1, label, temp_uint16_val);
+
+        CheckMaskLabelsAndCorrect(v_s_panel_pos_labels);
+
+        bin_file.ReadValue(temp_uint8_array_1);
+        this->m_cpp_file.WriteAll1BitMasks(1, v_s_panel_pos_labels, temp_uint8_array_1, "third byte of " + label);
+
+
+        bin_file.ReadValue(temp_uint8_val);
+        this->m_cpp_file.WriteTrivialValue(1, label, temp_uint8_val);
+        this->m_cpp_file << endl;
+
+        return;
+    }
+
+    if (label == "magicAnimType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteNBitMask<uint32_t>
+            (
+                1, 
+                "magicAnimType", 
+                temp_val, 
+                label, 
+                this->m_hash_maps.m_list_of_magic_anim_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "objectType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteNBitMask<uint32_t>
+            (
+                1, 
+                "objectType", 
+                temp_val, 
+                label, 
+                this->m_hash_maps.m_list_of_object_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "magicType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "magicType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_magic_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "buildingType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "buildingType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_building_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "trapType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "trapType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_trap_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "wasteSize")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "wasteSize", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_waste_size_masks
+            );
+
+        return;
+    }
+
+    if (label == "groupTemplateNum")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "groupTemplateNum", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_group_template_num_masks
+            );
+
+        return;
+    }
+
+    if (label == "positionType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "positionType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_position_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "explosionFlags")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "explosionFlags", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_explosion_flags_masks
+            );
+
+        return;
+    }
+
+    if (label == "raceFlags")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "raceFlags", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_race_flags_masks
+            );
+
+        return;
+    }
+
+    if (label == "standType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "standType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_stand_type_masks
+            );
+
+        return;
+    }
+
+    if (label == "experienceExplosionPos")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "experienceExplosionPos", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_experience_explosion_pos_masks
+            );
+
+        return;
+    }
+
+    if (label == "equipmentFlags")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "equipmentFlags", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_equipment_flags_masks
+            );
+
+        return;
+    }
+
+    if (label == "hitType")
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "hitType", 
+                temp_val, 
+                this->m_hash_maps.m_list_of_hit_type_masks
+            );
+
+        return;
+    }
+
+    if ((label == "type") && (m_classid == MISSILE))
+    {
+        bin_file.ReadValue(temp_val);
+        this->m_cpp_file.WriteUniqueKeyWithConst<uint32_t>
+            (
+                1, 
+                "type",
+                temp_val, 
+                this->m_hash_maps.m_list_of_missile_type_masks
+            );
+
+        return;
+    }
+
     
+    bin_file.ReadValue(temp_val);
+    this->m_cpp_file.WriteTrivialValue(1, label, temp_val);
 
 }
-
-
-
-
-/*
-help_mask = 0x0000000F;
-
-const int tetrad = 4;
-
-if ((_classid & help_mask) == (GENERIC & help_mask))
-{
-    help_mask <<= tetrad;
-
-    if ((_classid & help_mask) == (EQUIPMENT & help_mask))
-    {
-        help_mask <<= tetrad;
-
-        if ((_classid & help_mask) == (SPECIALEQUIPMENT & help_mask))
-        {
-            help_mask <<= (2 * tetrad);
-
-            if (_classid == SPECIALEQUIPMENTEX)
-            {
-                PrintLabels(specialequipment);
-                return;
-            }
-
-            PrintLabels(specialequipment);
-            return;
-        }
-
-        if (_classid == CANNON)
-        {
-            PrintLabels(cannon);
-            return;
-        }
-
-        if (_classid == LOOKROUNDEQUIPMENT)
-        {
-            PrintLabels(lookroundequipment);
-            return;
-        }
-
-        if (_classid == MAGICEQUIPMENT)
-        {
-            PrintLabels(magicequipment);
-            return;
-        }
-
-        if (_classid == LOOKROUNDEQUIPMENTEFFECT)
-        {
-            PrintLabels(lookroundequipmenteffect);
-            return;
-        }
-
-
-        PrintLabels(equipment);
-        return;
-    }
-
-    if ((_classid & help_mask) == (STOREABLE & help_mask))
-    {
-        help_mask <<= tetrad;
-
-        if ((_classid & help_mask) == (DYNAMIC & help_mask))
-        {
-            help_mask <<= (2 * tetrad);
-
-            if ((_classid & help_mask) == (EXPLOSION & help_mask))
-            {
-                if (_classid == EXPLOSIONEX)
-                {
-                    PrintLabels(explosion);
-                    return;
-                }
-
-                PrintLabels(explosion);
-                return;
-            }
-
-            if ((_classid & help_mask) == (SMOKE & help_mask))
-            {
-                if (_classid == SMOKEFIRE)
-                {
-                    PrintLabels(smokefire);
-                    return;
-                }
-
-                PrintLabels(smoke);
-                return;
-            }
-
-            if (_classid == FLYINGWASTE)
-            {
-                PrintLabels(flyingwaste);
-                return;
-            }
-
-            if (_classid == MISSILE)
-            {
-                PrintLabels(missile);
-                return;
-            }
-
-
-            PrintLabels(generic);
-            return;
-        }
-
-        if ((_classid & help_mask) == (ACTIVE & help_mask))
-        {
-            help_mask <<= 2 * tetrad;
-
-            if ((_classid & help_mask) == (VERTICALVEHICLE & help_mask))
-            {
-                if ((_classid == VERTICALVEHICLEBOMBER))
-                {
-                    PrintLabels(verticalvehiclebomber);
-                    return;
-                }
-
-                if ((_classid == VERTICALVEHICLESPY))
-                {
-                    PrintLabels(verticalvehiclespy);
-                    return;
-                }
-
-
-                PrintLabels(verticalvehicle);
-                return;
-            }
-
-            if ((_classid & help_mask) == (MOVEABLE & help_mask))
-            {
-                help_mask <<= tetrad;
-
-                if ((_classid & help_mask) == (REPAIRER & help_mask))
-                {
-                    if ((_classid == BUILDER))
-                    {
-                        PrintLabels(builder);
-                        return;
-                    }
-
-                    PrintLabels(repairer);
-                    return;
-                }
-
-                if ((_classid == HARVESTER))
-                {
-                    PrintLabels(harvester);
-                    return;
-                }
-
-                if ((_classid == RPGUNIT))
-                {
-                    PrintLabels(rpgunit);
-                    return;
-                }
-
-                if ((_classid == SHOPUNIT))
-                {
-                    PrintLabels(shopunit);
-                    return;
-                }
-
-                PrintLabels(moveable);
-                return;
-            }
-
-            if ((_classid == STARTINGPOSITIONMARK))
-            {
-                PrintLabels(startingpositionmark);
-                return;
-            }
-
-            if ((_classid == BUILDING))
-            {
-                PrintLabels(building);
-                return;
-            }
-
-            if ((_classid == AIPLATOON))
-            {
-                PrintLabels(aiplatoon);
-                return;
-            }
-
-
-            if ((_classid & help_mask) == (SCRIPTEDACTIVE & help_mask))
-            {
-                PrintLabels(scriptedactive);
-                return;
-            }
-
-
-            PrintLabels(active);
-            return;
-        }
-
-
-        if ((_classid & help_mask) == (PASSIVE & help_mask))
-        {
-            help_mask <<= tetrad;
-
-            if ((_classid & help_mask) == (ANIMATEDPASSIVE & help_mask))
-            {
-                help_mask <<= tetrad;
-
-                if ((_classid & help_mask) == (TRANSIENTPASSIVE & help_mask))
-                {
-                    if (_classid == ARTEFACT)
-                    {
-                        PrintLabels(artefact);
-                        return;
-                    }
-
-                    if (_classid == TRAP)
-                    {
-                        PrintLabels(trap);
-                        return;
-                    }
-
-                    if (_classid == EQUIPMENTARTEFACT)
-                    {
-                        PrintLabels(equipmentartefact);
-                        return;
-                    }
-
-
-                    PrintLabels(passive);
-                    return;
-                }
-
-                if (_classid == SPECIALPASSIVE)
-                {
-                    PrintLabels(specialpassive);
-                    return;
-                }
-
-                if (_classid == GHOSTPASSIVE)
-                {
-                    PrintLabels(passive);
-                    return;
-                }
-
-                if (_classid == ANIMALPASSIVE)
-                {
-                    PrintLabels(passive);
-                    return;
-                }
-
-                PrintLabels(passive);
-                return;
-            }
-
-
-            if (_classid == BUILDPASSIVE)
-            {
-                PrintLabels(passive);
-                return;
-            }
-
-
-            PrintLabels(passive);
-            return;
-        }
-
-
-        if (_classid == MINE )
-        {
-            PrintLabels(mine);
-            return;
-        }
-
-        if ((_classid == VISIBLEFAKE))
-        {
-            PrintLabels(generic);
-            return;
-        }
-
-        PrintLabels(generic);
-        return;
-    }
-
-
-    PrintLabels(generic);
-    return;
-}
-
-
-for (int i = 0; i < _bits.length(); i++)
-{
-    switch (_bits[i])
-    {
-    case '0': myInputParUtil.WriteUINT<uint32_t>(32, "var_field", 1, _data); break;
-    case '1': myInputParUtil.WriteSTRING("str_field", 1, _data); break;
-    default: break;
-    }
-}
-
-*/
